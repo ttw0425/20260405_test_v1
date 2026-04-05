@@ -7,49 +7,60 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* 全局行距優化 */
-        body { line-height: 1.9; } 
+        body { line-height: 1.8; } 
         .page { display: none; }
         .page.active { display: block; }
         
-        /* 輸入框樣式：淺灰底色、圓角、加大下邊距 */
+        /* 輸入框樣式：淺灰底色、瘦身並增加內邊距留白 */
         input, textarea { 
             background-color: #f5f5f5 !important; 
             border: 1px solid #ddd !important; 
             border-radius: 4px; 
-            width: 100%; 
+            width: 95%; 
+            margin-left: auto;
+            margin-right: auto;
+            display: block; 
             outline: none; 
-            margin-bottom: 2.2rem; 
+            margin-bottom: 1.8rem; 
             padding: 12px 15px; 
-            line-height: 1.6; /* 修正輸入文字的行高 */
+            line-height: 1.5;
+            font-size: 1rem;
+            min-height: 50px;
         }
 
         textarea {
             resize: vertical;
+            min-height: 160px;
         }
 
         /* 上傳框樣式 */
         .upload-box { 
             border: 2px dashed #999; 
             background: #ededed; 
-            height: 150px; 
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 140px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
-            margin-bottom: 2.5rem; /* 增加上傳框與下方元素的距離 */
+            margin-bottom: 2rem; 
             color: #555; 
             text-align: center; 
             padding: 20px;
-            line-height: 1.4;
             border-radius: 4px;
         }
 
-        /* 下一步按鈕樣式 */
+        /* 下一步按鈕 */
         .btn-next { 
             background-color: #d35400; 
             color: white; 
-            width: 100%; 
-            padding: 15px; 
+            width: 95%; 
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            padding: 14px; 
             margin-top: 25px; 
             font-weight: bold; 
             border-radius: 4px; 
@@ -57,49 +68,48 @@
             font-size: 1.1rem;
         }
 
-        label { 
-            font-size: 1rem; 
+        /* 標籤縮排對齊 */
+        label, p.font-bold, .stage-desc, .supplement-text { 
+            width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        label, p.font-bold {
             font-weight: bold; 
-            display: block; 
             margin-top: 15px; 
-            margin-bottom: 8px; 
+            margin-bottom: 10px; 
         }
 
         h2 {
-            margin-bottom: 3rem !important;
+            margin-bottom: 2.5rem !important;
         }
 
-        .stage-desc { 
-            font-size: 1.05rem; 
-            line-height: 2.3; 
+        .stage-desc {
+            line-height: 2.3;
             margin-bottom: 2.5rem;
-            text-align: left;
         }
 
         .supplement-text {
             font-size: 0.88rem;
-            line-height: 2.1; 
+            line-height: 2.1;
             background-color: #fcfcfc;
-            padding: 18px;
+            padding: 15px;
             border: 1px solid #eee;
             margin-bottom: 2.2rem;
             border-radius: 4px;
         }
 
-        .font-bold {
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        /* 專門處理 Page 2 的間距 */
+        /* Page 2 & Page 3 統一間距容器 */
         .spacing-y-lg {
-            margin-top: 1.5rem; /* 讓原因輸入完後，距離上傳框更遠 */
+            margin-top: 1.5rem; 
         }
     </style>
 </head>
 <body class="bg-gray-200 flex justify-center py-10 px-4">
 
-    <div id="app" class="bg-white w-full max-w-md p-10 border-2 border-black shadow-lg min-h-[720px] flex flex-col justify-between rounded-lg">
+    <div id="app" class="bg-white w-full max-w-md p-8 border-2 border-black shadow-lg min-h-[720px] flex flex-col justify-between rounded-lg">
         
         <div id="content-area">
             <div id="page1" class="page active">
@@ -127,7 +137,7 @@
                 <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
                 <input type="hidden" id="elderImg">
                 
-                <hr class="my-16 border-dashed border-gray-400">
+                <hr class="my-16 border-dashed border-gray-400 w-[92%] mx-auto">
                 
                 <p class="font-bold">提出「爛梗建議」的物件名稱</p>
                 <input type="text" id="memeItem">
@@ -149,7 +159,9 @@
                 <p class="font-bold mb-3">選擇猶豫「是否告別」的物件名稱</p>
                 <input type="text" id="decisionItem">
 
-                <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
+                <div class="spacing-y-lg">
+                    <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
+                </div>
                 <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
                 <input type="hidden" id="decisionImg">
                 
@@ -166,8 +178,8 @@
 
             <div id="page4" class="page">
                 <h2 class="text-center text-xl font-bold">第一關</h2>
-                <p class="mb-8 font-medium text-gray-700">請描述決策告別物件<br>基本功能、外觀、使用時長</p>
-                <textarea id="stage1Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達與物件表面的特徵"></textarea>
+                <p class="font-bold">請描述決策告別物件基本功能、外觀、使用時長</p>
+                <textarea id="stage1Desc" placeholder="自由表達與物件表面的特徵"></textarea>
                 <button class="btn-next" onclick="submitAndNext(5)">物件建議</button>
             </div>
 
@@ -184,8 +196,8 @@
 
             <div id="page6" class="page">
                 <h2 class="text-center text-xl font-bold">第二關</h2>
-                <p class="mb-8 font-medium text-gray-700">請描述你與決策告別物件<br>的相關記憶或情感連結</p>
-                <textarea id="stage2Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達與物件回憶"></textarea>
+                <p class="font-bold">請描述你與決策告別物件的相關記憶或情感連結</p>
+                <textarea id="stage2Desc" placeholder="自由表達與物件回憶"></textarea>
                 <button class="btn-next" onclick="submitAndNext(7)">物件建議</button>
             </div>
 
@@ -202,8 +214,8 @@
 
             <div id="page8" class="page">
                 <h2 class="text-center text-xl font-bold">第三關</h2>
-                <p class="mb-8 font-medium text-gray-700">請描述你猶豫是否與此物告別的原因</p>
-                <textarea id="stage3Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達原因"></textarea>
+                <p class="font-bold">請描述你猶豫是否與此物告別的原因</p>
+                <textarea id="stage3Desc" placeholder="自由表達原因"></textarea>
                 <button class="btn-next" onclick="submitAndNext(9)">物件建議</button>
             </div>
 
@@ -235,6 +247,7 @@
         async function uploadToImgBB(input, hiddenId) {
             const file = input.files[0];
             if (!file) return;
+            // 統一上傳中的文字提示
             input.previousElementSibling.innerText = "上傳中...";
             const formData = new FormData();
             formData.append('image', file);
@@ -242,7 +255,8 @@
                 const resp = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, { method: 'POST', body: formData });
                 const res = await resp.json();
                 document.getElementById(hiddenId).value = res.data.url;
-                input.previousElementSibling.innerText = "✔️ 上傳成功";
+                // 統一上傳成功的文字提示，符合 Page 3 風格
+                input.previousElementSibling.innerText = "上傳成功";
             } catch (e) { alert("上傳失敗"); }
         }
 
