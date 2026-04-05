@@ -6,22 +6,81 @@
     <title>物件告別儀式</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* 全局字體與行距優化 */
+        body { line-height: 1.8; } 
         .page { display: none; }
         .page.active { display: block; }
-        input, textarea { border-bottom: 2px solid black !important; width: 100%; outline: none; margin-bottom: 1rem; background: transparent; }
-        .upload-box { border: 2px dashed #999; background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 1rem; color: #666; text-align: center; padding: 10px; }
-        .btn-next { background-color: #d35400; color: white; width: 100%; padding: 12px; margin-top: 10px; font-weight: bold; border-radius: 4px; }
-        label { font-size: 0.9rem; font-weight: bold; display: block; margin-top: 10px; }
-        .stage-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+        
+        /* 輸入框增加上下間距 */
+        input, textarea { 
+            border-bottom: 2px solid black !important; 
+            width: 100%; 
+            outline: none; 
+            margin-bottom: 2rem; /* 增加輸入框下方的間距 */
+            background: transparent;
+            padding: 8px 0;
+            line-height: 1.6;
+        }
+
+        .upload-box { 
+            border: 2px dashed #999; 
+            background: #f0f0f0; 
+            height: 140px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            margin-bottom: 2rem; 
+            color: #666; 
+            text-align: center; 
+            padding: 20px;
+            line-height: 1.4; /* 上傳框文字稍微緊湊一點點 */
+        }
+
+        .btn-next { 
+            background-color: #d35400; 
+            color: white; 
+            width: 100%; 
+            padding: 14px; 
+            margin-top: 20px; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            letter-spacing: 2px; /* 按鈕文字間距 */
+        }
+
+        label { 
+            font-size: 0.95rem; 
+            font-weight: bold; 
+            display: block; 
+            margin-top: 15px; 
+            margin-bottom: 5px;
+        }
+
+        /* 專門針對說明文字的行距 */
+        .stage-desc { 
+            font-size: 1.05rem; 
+            line-height: 2.2; /* 這裡調高了表決頁面的文字行距 */
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .supplement-text {
+            font-size: 0.85rem;
+            line-height: 2; /* 補充說明的行距 */
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 2rem;
+        }
     </style>
 </head>
 <body class="bg-gray-200 flex justify-center py-10">
 
-    <div id="app" class="bg-white w-full max-w-md p-8 border-2 border-black shadow-lg min-h-[600px] flex flex-col justify-between">
+    <div id="app" class="bg-white w-full max-w-md p-10 border-2 border-black shadow-lg min-h-[700px] flex flex-col justify-between">
         
         <div id="content-area">
             <div id="page1" class="page active">
-                <h2 class="text-center text-2xl font-bold mb-8">基本資料</h2>
+                <h2 class="text-center text-2xl font-bold mb-10">基本資料</h2>
                 <label>姓名</label><input type="text" id="name">
                 <label>年齡</label><input type="text" id="age">
                 <label>email (做為進度保存 ID)</label><input type="email" id="email">
@@ -33,22 +92,22 @@
             </div>
 
             <div id="page2" class="page">
-                <h2 class="text-center text-xl font-bold mb-6">選擇提供建議物件</h2>
+                <h2 class="text-center text-xl font-bold mb-8">選擇提供建議物件</h2>
                 <p class="font-bold">提出「長輩建議」的物件名稱</p>
                 <input type="text" id="elderItem">
-                <p class="font-bold text-sm">選擇原因</p>
+                <p class="font-bold">選擇原因</p>
                 <input type="text" id="elderReason">
-                <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳物件照片</div>
+                <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳長輩物件照片</div>
                 <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
                 <input type="hidden" id="elderImg">
                 
-                <hr class="my-6 border-dashed border-gray-400">
+                <hr class="my-10 border-dashed border-gray-400">
                 
                 <p class="font-bold">提出「爛梗建議」的物件名稱</p>
                 <input type="text" id="memeItem">
-                <p class="font-bold text-sm">選擇原因</p>
+                <p class="font-bold">選擇原因</p>
                 <input type="text" id="memeReason">
-                <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳物件照片</div>
+                <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳梗物件照片</div>
                 <input type="file" id="memeImgInput" class="hidden" onchange="uploadToImgBB(this, 'memeImg')">
                 <input type="hidden" id="memeImg">
                 
@@ -56,14 +115,14 @@
             </div>
 
             <div id="page3" class="page">
-                <h2 class="text-center text-xl font-bold mb-6">選擇決策告別物件</h2>
+                <h2 class="text-center text-xl font-bold mb-8">選擇決策告別物件</h2>
                 <p class="mb-4">選擇猶豫「是否告別」的物件</p>
                 <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
                 <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
                 <input type="text" id="decisionItem" placeholder="請輸入物件名稱">
                 <input type="hidden" id="decisionImg">
-                <div class="text-xs bg-white leading-relaxed mb-4">
-                    <p class="font-bold">補充說明：</p>
+                <div class="supplement-text">
+                    <p class="font-bold mb-2 underline">補充說明：</p>
                     挑選一件不確定、猶豫告別的日常物件<br>
                     挑選標準包括：<br>
                     1. 對你有特殊意義或情感連結<br>
@@ -75,13 +134,13 @@
 
             <div id="page4" class="page">
                 <h2 class="text-center text-xl font-bold mb-8">第一關</h2>
-                <p class="mb-4">請描述決策告別物件<br>基本功能、外觀、使用時長</p>
-                <textarea id="stage1Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達與物件表面的特徵"></textarea>
+                <p class="mb-6">請描述決策告別物件<br>基本功能、外觀、使用時長</p>
+                <textarea id="stage1Desc" class="h-48 p-4 border border-black w-full" placeholder="自由表達與物件表面的特徵"></textarea>
                 <button class="btn-next" onclick="submitAndNext(5)">物件建議</button>
             </div>
 
             <div id="page5" class="page">
-                <h2 class="text-center text-xl font-bold mb-8">表決</h2>
+                <h2 class="text-center text-xl font-bold mb-10">表決</h2>
                 <div class="stage-desc">
                     階段說明：<br>
                     請在兩物件吐出的字條上<br>
@@ -93,13 +152,13 @@
 
             <div id="page6" class="page">
                 <h2 class="text-center text-xl font-bold mb-8">第二關</h2>
-                <p class="mb-4">請描述你與決策告別物件<br>的相關記憶或情感連結</p>
-                <textarea id="stage2Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達與物件回憶"></textarea>
+                <p class="mb-6">請描述你與決策告別物件<br>的相關記憶或情感連結</p>
+                <textarea id="stage2Desc" class="h-48 p-4 border border-black w-full" placeholder="自由表達與物件回憶"></textarea>
                 <button class="btn-next" onclick="submitAndNext(7)">物件建議</button>
             </div>
 
             <div id="page7" class="page">
-                <h2 class="text-center text-xl font-bold mb-8">表決</h2>
+                <h2 class="text-center text-xl font-bold mb-10">表決</h2>
                 <div class="stage-desc">
                     階段說明：<br>
                     請在兩物件吐出的字條上<br>
@@ -111,13 +170,13 @@
 
             <div id="page8" class="page">
                 <h2 class="text-center text-xl font-bold mb-8">第三關</h2>
-                <p class="mb-4">請描述你猶豫是否與此物告別的原因</p>
-                <textarea id="stage3Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達"></textarea>
+                <p class="mb-6">請描述你猶豫是否與此物告別的原因</p>
+                <textarea id="stage3Desc" class="h-48 p-4 border border-black w-full" placeholder="自由表達"></textarea>
                 <button class="btn-next" onclick="submitAndNext(9)">物件建議</button>
             </div>
 
             <div id="page9" class="page">
-                <h2 class="text-center text-xl font-bold mb-8">最終決策</h2>
+                <h2 class="text-center text-xl font-bold mb-10">最終決策</h2>
                 <div class="stage-desc">
                     階段說明：<br>
                     請在兩物件吐出的字條上<br>
@@ -126,14 +185,13 @@
                     並統計字條上的表決結果<br>
                     決定是否與物件告別
                 </div>
-                <button class="btn-next" onclick="alert('儀式圓滿完成！資料已同步至雲端。')">完成</button>
+                <button class="btn-next" onclick="alert('儀式圓滿完成！')">完成</button>
             </div>
         </div>
 
     </div>
 
     <script>
-        // --- 請務必修改這兩行 ---
         const IMGBB_KEY = 'c771d4d74bbeeac8401c8c2ec77452f0'; 
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwc8ge3qZ1mxVryIVShuUpdHMMcMg0Ec2T7uIQchPETJXkmYNYx8ha4nnPMPAXaU8Z4Tg/exec';
 
@@ -154,16 +212,12 @@
                 const res = await resp.json();
                 document.getElementById(hiddenId).value = res.data.url;
                 input.previousElementSibling.innerText = "✔️ 上傳成功";
-            } catch (e) { 
-                alert("上傳失敗"); 
-                input.previousElementSibling.innerText = "上傳失敗，點擊重試";
-            }
+            } catch (e) { alert("上傳失敗"); }
         }
 
         async function submitAndNext(nextStep) {
             const email = document.getElementById('email').value.trim();
             if (!email) { alert("請填寫 Email 以利保存進度"); return; }
-
             const data = {
                 name: document.getElementById('name').value,
                 age: document.getElementById('age').value,
@@ -184,7 +238,6 @@
                 stage2Desc: document.getElementById('stage2Desc')?.value || "",
                 stage3Desc: document.getElementById('stage3Desc')?.value || ""
             };
-
             fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
             nextPage(nextStep);
         }
