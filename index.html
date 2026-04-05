@@ -9,110 +9,133 @@
         .page { display: none; }
         .page.active { display: block; }
         input, textarea { border-bottom: 2px solid black !important; width: 100%; outline: none; margin-bottom: 1rem; background: transparent; }
-        .upload-box { border: 2px dashed #999; background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 1rem; color: #666; }
-        .btn-next { background-color: #d35400; color: white; width: 100%; padding: 12px; margin-top: 10px; font-weight: bold; }
+        .upload-box { border: 2px dashed #999; background: #f0f0f0; height: 120px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 1rem; color: #666; text-align: center; padding: 10px; }
+        .btn-next { background-color: #d35400; color: white; width: 100%; padding: 12px; margin-top: 10px; font-weight: bold; border-radius: 4px; }
         label { font-size: 0.9rem; font-weight: bold; display: block; margin-top: 10px; }
+        .stage-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
     </style>
 </head>
 <body class="bg-gray-200 flex justify-center py-10">
 
-    <div id="app" class="bg-white w-full max-w-md p-8 border-2 border-black shadow-lg">
+    <div id="app" class="bg-white w-full max-w-md p-8 border-2 border-black shadow-lg min-h-[600px] flex flex-col justify-between">
         
-        <div id="page1" class="page active">
-            <h2 class="text-center text-2xl font-bold mb-8">基本資料</h2>
-            <label>姓名</label><input type="text" id="name">
-            <label>年齡</label><input type="text" id="age">
-            <label>email (做為進度保存 ID)</label><input type="email" id="email">
-            <label>職業</label><input type="text" id="job">
-            <label>最高學歷</label><input type="text" id="education">
-            <label>呈上題，就讀學校及系所</label><input type="text" id="school">
-            <label>興趣或專長</label><input type="text" id="interest">
-            <button class="btn-next" onclick="nextPage(2)">下一步</button>
-        </div>
-
-        <div id="page2" class="page">
-            <h2 class="text-center text-xl font-bold mb-6">選擇提供建議物件</h2>
-            <p class="font-bold">提出「長輩建議」的物件名稱</p>
-            <input type="text" id="elderItem">
-            <p class="font-bold text-sm">選擇原因</p>
-            <input type="text" id="elderReason">
-            <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳物件照片</div>
-            <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
-            <input type="hidden" id="elderImg">
-            
-            <hr class="my-6 border-dashed border-gray-400">
-            
-            <p class="font-bold">提出「梗建議」的物件名稱</p>
-            <input type="text" id="memeItem">
-            <p class="font-bold text-sm">選擇原因</p>
-            <input type="text" id="memeReason">
-            <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳物件照片</div>
-            <input type="file" id="memeImgInput" class="hidden" onchange="uploadToImgBB(this, 'memeImg')">
-            <input type="hidden" id="memeImg">
-            
-            <button class="btn-next" onclick="submitAndNext(3)">下一步</button>
-        </div>
-
-        <div id="page3" class="page">
-            <h2 class="text-center text-xl font-bold mb-6">選擇決策告別物件</h2>
-            <p class="font-bold">選擇猶豫「是否告別」的物件</p>
-            <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
-            <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
-            <input type="hidden" id="decisionImg">
-            <div class="text-xs bg-gray-100 p-3 leading-relaxed mb-4">
-                補充說明：挑選一件不確定、猶豫告別的日常物件<br>
-                1. 對你有特殊意義或情感連結<br>
-                2. 承載著某段記憶或生活痕跡<br>
-                3. 非單純的垃圾或廢棄物
+        <div id="content-area">
+            <div id="page1" class="page active">
+                <h2 class="text-center text-2xl font-bold mb-8">基本資料</h2>
+                <label>姓名</label><input type="text" id="name">
+                <label>年齡</label><input type="text" id="age">
+                <label>email (做為進度保存 ID)</label><input type="email" id="email">
+                <label>職業</label><input type="text" id="job">
+                <label>最高學歷</label><input type="text" id="education">
+                <label>呈上題，就讀學校及系所</label><input type="text" id="school">
+                <label>興趣或專長</label><input type="text" id="interest">
+                <button class="btn-next" onclick="nextPage(2)">下一步</button>
             </div>
-            <button class="btn-next" onclick="submitAndNext(4)">下一步</button>
-        </div>
 
-        <div id="page4" class="page">
-            <h2 class="text-center text-xl font-bold mb-4">第一關</h2>
-            <p class="text-sm mb-4">請描述決策告別物件基本功能、外觀、使用時長</p>
-            <textarea id="stage1Desc" class="h-40 p-2 border border-black w-full" placeholder="自由表達與物件表面的特徵"></textarea>
-            <button class="btn-next" onclick="submitAndNext(5)">物件建議</button>
-        </div>
+            <div id="page2" class="page">
+                <h2 class="text-center text-xl font-bold mb-6">選擇提供建議物件</h2>
+                <p class="font-bold">提出「長輩建議」的物件名稱</p>
+                <input type="text" id="elderItem">
+                <p class="font-bold text-sm">選擇原因</p>
+                <input type="text" id="elderReason">
+                <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳物件照片</div>
+                <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
+                <input type="hidden" id="elderImg">
+                
+                <hr class="my-6 border-dashed border-gray-400">
+                
+                <p class="font-bold">提出「爛梗建議」的物件名稱</p>
+                <input type="text" id="memeItem">
+                <p class="font-bold text-sm">選擇原因</p>
+                <input type="text" id="memeReason">
+                <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳物件照片</div>
+                <input type="file" id="memeImgInput" class="hidden" onchange="uploadToImgBB(this, 'memeImg')">
+                <input type="hidden" id="memeImg">
+                
+                <button class="btn-next" onclick="submitAndNext(3)">下一步</button>
+            </div>
 
-        <div id="page5" class="page">
-            <h2 class="text-center text-xl font-bold mb-8">表決</h2>
-            <p class="text-center">請在兩物件吐出的字條上註記<br>是否認同此建議</p>
-            <button class="btn-next" onclick="nextPage(6)">下一關</button>
-        </div>
+            <div id="page3" class="page">
+                <h2 class="text-center text-xl font-bold mb-6">選擇決策告別物件</h2>
+                <p class="mb-4">選擇猶豫「是否告別」的物件</p>
+                <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
+                <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
+                <input type="text" id="decisionItem" placeholder="請輸入物件名稱">
+                <input type="hidden" id="decisionImg">
+                <div class="text-xs bg-white leading-relaxed mb-4">
+                    <p class="font-bold">補充說明：</p>
+                    挑選一件不確定、猶豫告別的日常物件<br>
+                    挑選標準包括：<br>
+                    1. 對你有特殊意義或情感連結<br>
+                    2. 承載著某段記憶或生活痕跡<br>
+                    3. 非單純的垃圾或廢棄物
+                </div>
+                <button class="btn-next" onclick="submitAndNext(4)">下一步</button>
+            </div>
 
-        <div id="page6" class="page">
-            <h2 class="text-center text-xl font-bold mb-4">第二關</h2>
-            <p class="text-sm mb-4">請描述你與決策告別物件的相關記憶或情感連結</p>
-            <textarea id="stage2Desc" class="h-40 p-2 border border-black w-full"></textarea>
-            <button class="btn-next" onclick="submitAndNext(7)">物件建議</button>
-        </div>
+            <div id="page4" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">第一關</h2>
+                <p class="mb-4">請描述決策告別物件<br>基本功能、外觀、使用時長</p>
+                <textarea id="stage1Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達與物件表面的特徵"></textarea>
+                <button class="btn-next" onclick="submitAndNext(5)">物件建議</button>
+            </div>
 
-        <div id="page7" class="page">
-            <h2 class="text-center text-xl font-bold mb-8">表決</h2>
-            <button class="btn-next" onclick="nextPage(8)">下一關</button>
-        </div>
+            <div id="page5" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">表決</h2>
+                <div class="stage-desc">
+                    階段說明：<br>
+                    請在兩物件吐出的字條上<br>
+                    註記是否認同此建議（正反各一票）<br>
+                    完成後請點選「下一關」
+                </div>
+                <button class="btn-next" onclick="nextPage(6)">下一關</button>
+            </div>
 
-        <div id="page8" class="page">
-            <h2 class="text-center text-xl font-bold mb-4">第三關</h2>
-            <p class="text-sm mb-4">請描述你猶豫是否與此物件告別的原因</p>
-            <textarea id="stage3Desc" class="h-40 p-2 border border-black w-full"></textarea>
-            <button class="btn-next" onclick="submitAndNext(9)">物件建議</button>
-        </div>
+            <div id="page6" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">第二關</h2>
+                <p class="mb-4">請描述你與決策告別物件<br>的相關記憶或情感連結</p>
+                <textarea id="stage2Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達與物件回憶"></textarea>
+                <button class="btn-next" onclick="submitAndNext(7)">物件建議</button>
+            </div>
 
-        <div id="page9" class="page">
-            <h2 class="text-center text-xl font-bold mb-8">最終決策</h2>
-            <p class="text-center font-bold">決定是否與物件告別</p>
-            <button class="btn-next" onclick="alert('儀式圓滿完成！')">完成</button>
+            <div id="page7" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">表決</h2>
+                <div class="stage-desc">
+                    階段說明：<br>
+                    請在兩物件吐出的字條上<br>
+                    註記是否認同此建議（正反各一票）<br>
+                    完成後請點選「下一關」
+                </div>
+                <button class="btn-next" onclick="nextPage(8)">下一關</button>
+            </div>
+
+            <div id="page8" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">第三關</h2>
+                <p class="mb-4">請描述你猶豫是否與此物告別的原因</p>
+                <textarea id="stage3Desc" class="h-40 p-2 border border-gray-300 w-full" placeholder="自由表達"></textarea>
+                <button class="btn-next" onclick="submitAndNext(9)">物件建議</button>
+            </div>
+
+            <div id="page9" class="page">
+                <h2 class="text-center text-xl font-bold mb-8">最終決策</h2>
+                <div class="stage-desc">
+                    階段說明：<br>
+                    請在兩物件吐出的字條上<br>
+                    註記是否認同此建議（正反各一票）<br>
+                    完成後請點選「完成」<br>
+                    並統計字條上的表決結果<br>
+                    決定是否與物件告別
+                </div>
+                <button class="btn-next" onclick="alert('儀式圓滿完成！資料已同步至雲端。')">完成</button>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // --- 請修改以下資訊 ---
+        // --- 請務必修改這兩行 ---
         const IMGBB_KEY = 'c771d4d74bbeeac8401c8c2ec77452f0'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbyRrOAhwmNDdpXxPmt7n3iPu_x2wm6AxCwL7VlZm6KQYqrykYVhjczPDLxLT0PX2aSjSg/exec';
-        // ---------------------
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwc8ge3qZ1mxVryIVShuUpdHMMcMg0Ec2T7uIQchPETJXkmYNYx8ha4nnPMPAXaU8Z4Tg/exec';
 
         function nextPage(num) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -131,11 +154,14 @@
                 const res = await resp.json();
                 document.getElementById(hiddenId).value = res.data.url;
                 input.previousElementSibling.innerText = "✔️ 上傳成功";
-            } catch (e) { alert("上傳失敗"); }
+            } catch (e) { 
+                alert("上傳失敗"); 
+                input.previousElementSibling.innerText = "上傳失敗，點擊重試";
+            }
         }
 
         async function submitAndNext(nextStep) {
-            const email = document.getElementById('email').value;
+            const email = document.getElementById('email').value.trim();
             if (!email) { alert("請填寫 Email 以利保存進度"); return; }
 
             const data = {
@@ -152,15 +178,14 @@
                 memeItem: document.getElementById('memeItem').value,
                 memeReason: document.getElementById('memeReason').value,
                 memeImg: document.getElementById('memeImg').value,
+                decisionItem: document.getElementById('decisionItem').value,
                 decisionImg: document.getElementById('decisionImg').value,
                 stage1Desc: document.getElementById('stage1Desc')?.value || "",
                 stage2Desc: document.getElementById('stage2Desc')?.value || "",
                 stage3Desc: document.getElementById('stage3Desc')?.value || ""
             };
 
-            // 傳送到 Excel
             fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
-            
             nextPage(nextStep);
         }
     </script>
