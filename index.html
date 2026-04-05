@@ -11,41 +11,33 @@
         .page { display: none; }
         .page.active { display: block; }
         
-        /* 輸入框樣式：增加內邊距確保上下左右留白，並提高高度 */
+        /* 輸入框樣式：淺灰底色、圓角、加大上下間距 */
         input, textarea { 
-            border: 2px dashed #999; 
-            background: #ededed; 
-            width: 92%;
-            margin-left: auto;
-            margin-right: auto;
-            height: 140px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            margin-bottom: 2rem; 
-            color: #555; 
-            text-align: center; 
-            padding: 20px;
-            border-radius: 4px;
+            background-color: #f5f5f5 !important; /* 淺灰底色 */
+            border: 1px solid #ddd !important; /* 淺灰邊框 */
+            border-radius: 4px; /* 圓角 */
+            width: 100%; 
+            outline: none; 
+            margin-bottom: 2.2rem; /* 加大下方的間距 */
+            padding: 12px 15px; /* 加大內邊距 */
+            line-height: 1.6;
         }
 
-        /* 針對多行文字框調整高度 */
+        /* 文字區域特定樣式 */
         textarea {
             resize: vertical;
-            min-height: 200px;
         }
 
-        /* 上傳框樣式 */
+        /* 上傳框樣式：加大高度、加大間距 */
         .upload-box { 
             border: 2px dashed #999; 
-            background: #ededed; 
-            height: 150px; 
+            background: #ededed; /* 稍微深一點點的淺灰底色 */
+            height: 150px; /* 加大高度 */
             display: flex; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
-            margin-bottom: 2.5rem; 
+            margin-bottom: 2.2rem; /* 加大下方的間距 */
             color: #555; 
             text-align: center; 
             padding: 20px;
@@ -66,25 +58,29 @@
             font-size: 1.1rem;
         }
 
+        /* 標籤樣式 */
         label { 
             font-size: 1rem; 
             font-weight: bold; 
             display: block; 
             margin-top: 15px; 
-            margin-bottom: 12px; 
+            margin-bottom: 8px; /* 加大與下方輸入框的間距 */
         }
 
+        /* 標題樣式：加大下邊距 */
         h2 {
             margin-bottom: 3rem !important;
         }
 
+        /* 表決說明文字樣式：加大行距 */
         .stage-desc { 
             font-size: 1.05rem; 
-            line-height: 2.3; 
+            line-height: 2.3; /* 調高表決頁面的文字行距 */
             margin-bottom: 2.5rem;
             text-align: left;
         }
 
+        /* 補充說明文字樣式：加大行距 */
         .supplement-text {
             font-size: 0.88rem;
             line-height: 2.1; 
@@ -95,14 +91,10 @@
             border-radius: 4px;
         }
 
+        /* 內文特定強調文字 */
         .font-bold {
             margin-bottom: 0.5rem;
             display: block;
-        }
-
-        /* 處理間距 */
-        .spacing-y-lg {
-            margin-top: 2rem; /* 加大原因與上傳框的距離 */
         }
     </style>
 </head>
@@ -115,7 +107,7 @@
                 <h2 class="text-center text-2xl font-bold">基本資料</h2>
                 <label>姓名</label><input type="text" id="name">
                 <label>年齡</label><input type="text" id="age">
-                <label>email</label><input type="email" id="email">
+                <label>email (做為進度保存 ID)</label><input type="email" id="email">
                 <label>職業</label><input type="text" id="job">
                 <label>最高學歷</label><input type="text" id="education">
                 <label>呈上題，就讀學校及系所</label><input type="text" id="school">
@@ -126,26 +118,20 @@
             <div id="page2" class="page">
                 <h2 class="text-center text-xl font-bold">選擇提供建議物件</h2>
                 <p class="font-bold">提出「長輩建議」的物件名稱</p>
-                <input type="text" id="elderItem" placeholder="請輸入物件名稱">
+                <input type="text" id="elderItem">
                 <p class="font-bold">選擇原因</p>
-                <input type="text" id="elderReason" placeholder="請輸入原因">
-                
-                <div class="spacing-y-lg">
-                    <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳長輩物件照片</div>
-                </div>
+                <input type="text" id="elderReason">
+                <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳長輩物件照片</div>
                 <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
                 <input type="hidden" id="elderImg">
                 
-                <hr class="my-16 border-dashed border-gray-400">
+                <hr class="my-12 border-dashed border-gray-400">
                 
-                <p class="font-bold">提出「爛梗建議」的物件名稱</p>
-                <input type="text" id="memeItem" placeholder="請輸入物件名稱">
+                <p class="font-bold">提出「梗建議」的物件名稱</p>
+                <input type="text" id="memeItem">
                 <p class="font-bold">選擇原因</p>
-                <input type="text" id="memeReason" placeholder="請輸入原因">
-                
-                <div class="spacing-y-lg">
-                    <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳梗物件照片</div>
-                </div>
+                <input type="text" id="memeReason">
+                <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳梗物件照片</div>
                 <input type="file" id="memeImgInput" class="hidden" onchange="uploadToImgBB(this, 'memeImg')">
                 <input type="hidden" id="memeImg">
                 
@@ -158,9 +144,7 @@
                 <p class="font-bold mb-3">選擇猶豫「是否告別」的物件名稱</p>
                 <input type="text" id="decisionItem" placeholder="請輸入物件名稱">
 
-                <div class="spacing-y-lg">
-                    <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
-                </div>
+                <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
                 <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
                 <input type="hidden" id="decisionImg">
                 
@@ -178,7 +162,7 @@
             <div id="page4" class="page">
                 <h2 class="text-center text-xl font-bold">第一關</h2>
                 <p class="mb-8 font-medium text-gray-700">請描述決策告別物件<br>基本功能、外觀、使用時長</p>
-                <textarea id="stage1Desc" placeholder="自由表達與物件表面的特徵"></textarea>
+                <textarea id="stage1Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達與物件表面的特徵"></textarea>
                 <button class="btn-next" onclick="submitAndNext(5)">物件建議</button>
             </div>
 
@@ -196,7 +180,7 @@
             <div id="page6" class="page">
                 <h2 class="text-center text-xl font-bold">第二關</h2>
                 <p class="mb-8 font-medium text-gray-700">請描述你與決策告別物件<br>的相關記憶或情感連結</p>
-                <textarea id="stage2Desc" placeholder="自由表達與物件回憶"></textarea>
+                <textarea id="stage2Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達與物件回憶"></textarea>
                 <button class="btn-next" onclick="submitAndNext(7)">物件建議</button>
             </div>
 
@@ -214,7 +198,7 @@
             <div id="page8" class="page">
                 <h2 class="text-center text-xl font-bold">第三關</h2>
                 <p class="mb-8 font-medium text-gray-700">請描述你猶豫是否與此物告別的原因</p>
-                <textarea id="stage3Desc" placeholder="自由表達原因"></textarea>
+                <textarea id="stage3Desc" class="h-56 p-4 border border-gray-300 w-full" placeholder="自由表達"></textarea>
                 <button class="btn-next" onclick="submitAndNext(9)">物件建議</button>
             </div>
 
@@ -231,11 +215,13 @@
                 <button class="btn-next" onclick="alert('儀式圓滿完成！資料已同步至 Excel。')">完成</button>
             </div>
         </div>
+
     </div>
 
     <script>
-        const IMGBB_KEY = 'c771d4d74bbeeac8401c8c2ec77452f0'; 
-        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwc8ge3qZ1mxVryIVShuUpdHMMcMg0Ec2T7uIQchPETJXkmYNYx8ha4nnPMPAXaU8Z4Tg/exec';
+        // --- 請務必修改這兩行 ---
+        const IMGBB_KEY = 'YOUR_IMGBB_API_KEY'; 
+        const GAS_URL = 'YOUR_GAS_URL';
 
         function nextPage(num) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
