@@ -11,33 +11,32 @@
         .page { display: none; }
         .page.active { display: block; }
         
-        /* 輸入框樣式：淺灰底色、圓角、加大上下間距 */
+        /* 輸入框樣式：淺灰底色、圓角、加大下邊距 */
         input, textarea { 
-            background-color: #f5f5f5 !important; /* 淺灰底色 */
-            border: 1px solid #ddd !important; /* 淺灰邊框 */
-            border-radius: 4px; /* 圓角 */
+            background-color: #f5f5f5 !important; 
+            border: 1px solid #ddd !important; 
+            border-radius: 4px; 
             width: 100%; 
             outline: none; 
-            margin-bottom: 2.2rem; /* 加大下方的間距 */
-            padding: 12px 15px; /* 加大內邊距 */
+            margin-bottom: 2.2rem; 
+            padding: 12px 15px; 
             line-height: 1.6;
         }
 
-        /* 文字區域特定樣式 */
         textarea {
             resize: vertical;
         }
 
-        /* 上傳框樣式：加大高度、加大間距 */
+        /* 上傳框樣式 */
         .upload-box { 
             border: 2px dashed #999; 
-            background: #ededed; /* 稍微深一點點的淺灰底色 */
-            height: 150px; /* 加大高度 */
+            background: #ededed; 
+            height: 150px; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer; 
-            margin-bottom: 2.2rem; /* 加大下方的間距 */
+            margin-bottom: 2.5rem; 
             color: #555; 
             text-align: center; 
             padding: 20px;
@@ -58,29 +57,25 @@
             font-size: 1.1rem;
         }
 
-        /* 標籤樣式 */
         label { 
             font-size: 1rem; 
             font-weight: bold; 
             display: block; 
             margin-top: 15px; 
-            margin-bottom: 8px; /* 加大與下方輸入框的間距 */
+            margin-bottom: 8px; 
         }
 
-        /* 標題樣式：加大下邊距 */
         h2 {
             margin-bottom: 3rem !important;
         }
 
-        /* 表決說明文字樣式：加大行距 */
         .stage-desc { 
             font-size: 1.05rem; 
-            line-height: 2.3; /* 調高表決頁面的文字行距 */
+            line-height: 2.3; 
             margin-bottom: 2.5rem;
             text-align: left;
         }
 
-        /* 補充說明文字樣式：加大行距 */
         .supplement-text {
             font-size: 0.88rem;
             line-height: 2.1; 
@@ -91,10 +86,14 @@
             border-radius: 4px;
         }
 
-        /* 內文特定強調文字 */
         .font-bold {
             margin-bottom: 0.5rem;
             display: block;
+        }
+
+        /* 專門處理 Page 2 & Page 3 的間距 */
+        .spacing-y-lg {
+            margin-top: 1.5rem; 
         }
     </style>
 </head>
@@ -118,20 +117,24 @@
             <div id="page2" class="page">
                 <h2 class="text-center text-xl font-bold">選擇提供建議物件</h2>
                 <p class="font-bold">提出「長輩建議」的物件名稱</p>
-                <input type="text" id="elderItem" placeholder="請輸入物件名稱">
+                <input type="text" id="elderItem">
                 <p class="font-bold">選擇原因</p>
                 <input type="text" id="elderReason">
-                <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳長輩物件照片</div>
+                <div class="spacing-y-lg">
+                    <div class="upload-box" onclick="document.getElementById('elderImgInput').click()">上傳長輩物件照片</div>
+                </div>
                 <input type="file" id="elderImgInput" class="hidden" onchange="uploadToImgBB(this, 'elderImg')">
                 <input type="hidden" id="elderImg">
                 
-                <hr class="my-12 border-dashed border-gray-400">
+                <hr class="my-16 border-dashed border-gray-400">
                 
                 <p class="font-bold">提出「爛梗建議」的物件名稱</p>
-                <input type="text" id="memeItem" placeholder="請輸入物件名稱">
+                <input type="text" id="memeItem">
                 <p class="font-bold">選擇原因</p>
                 <input type="text" id="memeReason">
-                <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳梗物件照片</div>
+                <div class="spacing-y-lg">
+                    <div class="upload-box" onclick="document.getElementById('memeImgInput').click()">上傳梗物件照片</div>
+                </div>
                 <input type="file" id="memeImgInput" class="hidden" onchange="uploadToImgBB(this, 'memeImg')">
                 <input type="hidden" id="memeImg">
                 
@@ -142,9 +145,11 @@
                 <h2 class="text-center text-xl font-bold">選擇決策告別物件</h2>
                 
                 <p class="font-bold mb-3">選擇猶豫「是否告別」的物件名稱</p>
-                <input type="text" id="decisionItem" placeholder="請輸入物件名稱">
+                <input type="text" id="decisionItem">
 
-                <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
+                <div class="spacing-y-lg">
+                    <div class="upload-box" onclick="document.getElementById('decImgInput').click()">上傳物件照片</div>
+                </div>
                 <input type="file" id="decImgInput" class="hidden" onchange="uploadToImgBB(this, 'decisionImg')">
                 <input type="hidden" id="decisionImg">
                 
@@ -215,11 +220,9 @@
                 <button class="btn-next" onclick="alert('儀式圓滿完成！資料已同步至 Excel。')">完成</button>
             </div>
         </div>
-
     </div>
 
     <script>
-        // --- 請務必修改這兩行 ---
         const IMGBB_KEY = 'c771d4d74bbeeac8401c8c2ec77452f0'; 
         const GAS_URL = 'https://script.google.com/macros/s/AKfycbwc8ge3qZ1mxVryIVShuUpdHMMcMg0Ec2T7uIQchPETJXkmYNYx8ha4nnPMPAXaU8Z4Tg/exec';
 
